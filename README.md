@@ -22,7 +22,7 @@
 3. DB : H2 DataBase
 4. Tool : Github, PostMan
 
-#### 주요 기능
+### 주요 기능
 
 - 회원가입(Oauth 2.0 추가)
 - 로그인(JWT 발급)
