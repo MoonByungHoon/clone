@@ -1,2 +1,4 @@
-package study.clone.entity;public class Member {
+package study.clone.entity;
+
+public class Member {
 }
