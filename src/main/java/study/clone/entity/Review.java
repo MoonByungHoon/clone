@@ -15,7 +15,6 @@ public class Review extends BaseEntity {
   private String writer;
   private String comment;
 
-
   @ManyToOne
   @JoinColumn(name = "item_id")
   private Item item;
