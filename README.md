@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+#####프로젝트 ERD
+
+![제목 없음](https://github.com/MoonByungHoon/clone/assets/106061341/f140897a-0926-409e-ba2d-419ac6d3aed9)
+=======
 # 배달 어플 Clone 코딩
 
 - 배달 어플 API.
@@ -32,3 +37,4 @@
 - 주문, 취소
 - 상품 후기
 - 후기에 대한 판매자 코맨트
+>>>>>>> 481cf492dbc08c914982324e5c6608ba9aae4c70
