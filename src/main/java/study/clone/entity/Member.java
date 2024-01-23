@@ -1,6 +1,8 @@
 package study.clone.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import study.clone.entity.time.BaseEntity;
@@ -10,7 +12,9 @@ import java.util.List;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Member extends BaseEntity {
 
   @Id
