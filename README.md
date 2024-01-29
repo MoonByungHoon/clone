@@ -13,7 +13,7 @@
 
 ## ERD 다이어그램
 
-![image](https://github.com/MoonByungHoon/didabara_back/assets/106061341/c30d7318-8cbb-4c8d-92f7-3ce454834f1e)
+![erd](https://github.com/MoonByungHoon/clone/assets/106061341/9d144988-316e-4602-bf39-d2f9fa1deb7d)
 
 ### 개발환경
 
