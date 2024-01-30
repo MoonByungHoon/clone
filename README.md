@@ -19,7 +19,7 @@
 
 1. 언어 : Java
 2. 프레임워크, 라이브러리 : Spring Spring Boot, JPA, Spring Data JPA, QueryDSL, Spring Security
-3. DB : H2 DataBase(test), MySQL
+3. DB, 서버 : H2 DataBase(test), MySQL, AWS
 4. Tool : Github, PostMan
 
 ### 주요 기능
@@ -28,7 +28,7 @@
 - 로그인(JWT 발급)
 - 회원정보 수정 및 탈퇴
 - ID찾기, PW찾기
+- 스토어 등록, 수정, 삭제
 - 상품 등록, 수정, 삭제
-- 주문, 취소
-- 상품 후기
-- 후기에 대한 판매자 코맨트
+- 주문, 주문 취소
+- 상품 후기 및 자영업자 코멘트
