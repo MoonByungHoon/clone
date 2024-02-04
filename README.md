@@ -6,6 +6,7 @@
 
 - 학습한 내용을 활용하여 구축한 배달 어플 API.
 - DB 커넥션을 최적화 하기 위한 OSIV OFF.
+- tdd 개발
 
 ## 개발 기간
 
@@ -18,7 +19,7 @@
 ### 개발환경
 
 1. 언어 : Java
-2. 프레임워크, 라이브러리 : Spring Spring Boot, JPA, Spring Data JPA, QueryDSL, Spring Security
+2. 프레임워크, 라이브러리 : Spring Spring Boot, JPA, Spring Data JPA, QueryDSL, Spring Security, AssertJ(test)
 3. DB, 서버 : H2 DataBase(test), MySQL, AWS
 4. Tool : Github, PostMan
 
