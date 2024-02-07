@@ -33,4 +33,7 @@ public class MemberApiController {
 
     return ResponseEntity.status(HttpStatus.OK).body(responseDto);
   }
+
+  @PostMapping
+  public g
 }
