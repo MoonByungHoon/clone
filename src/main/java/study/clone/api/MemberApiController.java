@@ -23,7 +23,7 @@ public class MemberApiController {
   public ResponseEntity<?> signUp(@RequestBody @Valid final MemberDto memberDto) {
     ResponseDto responseDto = new ResponseDto();
 
-    if (memberService.save(memberDto)) {
+    if (memberService.signUp(memberDto)) {
       responseDto.setSuccess(true);
       responseDto.setMessage("회원 가입에 성공하였습니다.");
     } else {
@@ -33,7 +33,4 @@ public class MemberApiController {
 
     return ResponseEntity.status(HttpStatus.OK).body(responseDto);
   }
-
-  @PostMapping
-  public g
 }
