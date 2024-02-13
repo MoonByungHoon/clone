@@ -35,9 +35,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                             authorizationManagerRequestMatcherRegistry
 //                            해당 API에 대해서는 시큐리티가 모든 요청을 허가.
-                                    .requestMatchers("/", "auth/sign-in").permitAll()
+                                    .requestMatchers("/", "/auth/sign-up", "/auth/sign-in").permitAll()
 //                            USER 권한이 있어야지만 요청이 가능함.
-                                    .requestMatchers("/members/test").hasRole("USER")
+                                    .requestMatchers("/auth/test").hasRole("USER")
 //                            그 밖에 모든 요청에 대해서는 인증을 요구함을 설정.
                                     .anyRequest().authenticated()
             )

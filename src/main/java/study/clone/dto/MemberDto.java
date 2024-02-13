@@ -4,9 +4,11 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import study.clone.entity.Address;
 import study.clone.entity.Member;
+import study.clone.entity.Role;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,20 +25,26 @@ public class MemberDto {
   @NotBlank
   private String password;
 
-  @NotBlank
+  //  @NotBlank
   private AddressDto addressDto;
 
   private List<OrderDto> orderDtos = new ArrayList<>();
 
-  public Member toEntity(MemberDto memberDto) {
+  private Set<Role> roles;
+
+  public Member toEntity(final MemberDto memberDto) {
     return Member.builder()
             .username(this.username)
             .password(this.password)
-            .address(Address.builder()
-                    .city(this.addressDto.getCity())
-                    .street(this.addressDto.getStreet())
-                    .zipcode(this.addressDto.getZipcode())
-                    .build())
+            .address(
+                    memberDto.getAddressDto() != null ?
+                            Address.builder()
+                                    .city(this.addressDto.getCity())
+                                    .street(this.addressDto.getStreet())
+                                    .zipcode(this.addressDto.getZipcode())
+                                    .build() : new Address()
+            )
+            .roles(this.roles)
             .build();
   }
 }

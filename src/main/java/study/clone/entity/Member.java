@@ -7,9 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import study.clone.entity.time.BaseEntity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -38,13 +36,15 @@ public class Member extends BaseEntity implements UserDetails {
   private List<Order> orders = new ArrayList<>(); //주문
 
   @ElementCollection(fetch = FetchType.EAGER)
+  @Enumerated(EnumType.STRING)
   @Builder.Default
-  private List<String> roles = new ArrayList<>();
+  private Set<Role> roles = new HashSet<>();
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return this.roles.stream()
-            .map(SimpleGrantedAuthority::new)
+
+    return roles.stream()
+            .map(role -> new SimpleGrantedAuthority(role.name()))
             .collect(Collectors.toList());
   }
 

@@ -58,6 +58,10 @@ public class MemberService {
 //    인증 정보를 기반으로 JWT를 생성함.
     JwtToken jwtToken = jwtTokenProvider.generateToken(authentication);
 
+    System.out.println("jwtToken = " + memberDto.getUsername());
+    System.out.println("jwtToken = " + memberDto.getPassword());
+    System.out.println("jwtToken = " + jwtToken.getAccessToken());
+
     return jwtToken;
   }
 }
