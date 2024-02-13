@@ -12,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import study.clone.entity.Role;
 
 import java.security.Key;
 import java.util.Arrays;
@@ -72,7 +73,8 @@ public class JwtTokenProvider {
 
 //     클레임에서 권한 정보 가져오기
     Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get("auth").toString().split(","))
-            .map(SimpleGrantedAuthority::new)
+            .map(Role::valueOf)
+            .map(role -> new SimpleGrantedAuthority(role.name()))
             .collect(Collectors.toList());
 
 //     UserDetails 객체를 만들어서 Authentication return
