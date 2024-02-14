@@ -39,6 +39,8 @@ public class MemberApiController {
   public ResponseEntity<?> signIn(@RequestBody @Valid final MemberDto memberDto) {
     JwtToken jwtToken = memberService.signIn(memberDto);
 
+    System.out.println("성공");
+
     return ResponseEntity.status(HttpStatus.OK).body(jwtToken);
   }
 

@@ -1,5 +1,6 @@
 package study.clone.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,6 +14,8 @@ import study.clone.dto.MemberDto;
 import study.clone.entity.Member;
 import study.clone.exception.DuplicateUsernameException;
 import study.clone.repository.MemberRepository;
+
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -46,22 +49,24 @@ public class MemberService {
   @Transactional
   public JwtToken signIn(final MemberDto memberDto) {
 
+    Optional<Member> findMember = memberRepository.findByUsername(memberDto.getUsername());
+
+    if (passwordEncoder.matches(memberDto.getPassword(), findMember.get().getPassword())) {
+
 //    입력받은 회원 이름과 패스워드를 기반으로 Authentication 객체를 생성.
 //    이때에 생성된 Authentication의 인증여부를 확인하는 authenticated의 값은 false이다.
-    UsernamePasswordAuthenticationToken authenticationToken =
-            new UsernamePasswordAuthenticationToken(memberDto.getUsername(), memberDto.getPassword());
-
+      UsernamePasswordAuthenticationToken authenticationToken =
+              new UsernamePasswordAuthenticationToken(findMember.get().getUsername(), findMember.get().getPassword());
 //    실제 검증 절차. authenticate()를 통해서 요청된 Member에 대한 검증을 실시함.
 //    authenticate 메소드가 실행될 때에 CustomUserDetailsService에서 만들어둔 loadUserByUsername가 실행된다.
-    Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+      Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
 //    인증 정보를 기반으로 JWT를 생성함.
-    JwtToken jwtToken = jwtTokenProvider.generateToken(authentication);
+      JwtToken jwtToken = jwtTokenProvider.generateToken(authentication);
 
-    System.out.println("jwtToken = " + memberDto.getUsername());
-    System.out.println("jwtToken = " + memberDto.getPassword());
-    System.out.println("jwtToken = " + jwtToken.getAccessToken());
-
-    return jwtToken;
+      return jwtToken;
+    } else {
+      throw new EntityNotFoundException("일치하는 회원이 없습니다.");
+    }
   }
 }

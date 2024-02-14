@@ -8,7 +8,6 @@ import study.clone.entity.Role;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -30,7 +29,9 @@ public class MemberDto {
 
   private List<OrderDto> orderDtos = new ArrayList<>();
 
-  private Set<Role> roles;
+//  private Set<Role> roles;
+
+  private Role role;
 
   public Member toEntity(final MemberDto memberDto) {
     return Member.builder()
@@ -44,7 +45,7 @@ public class MemberDto {
                                     .zipcode(this.addressDto.getZipcode())
                                     .build() : new Address()
             )
-            .roles(this.roles)
+            .role(this.role)
             .build();
   }
 }
