@@ -7,8 +7,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import study.clone.entity.time.BaseEntity;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,18 +37,26 @@ public class Member extends BaseEntity implements UserDetails {
   @OneToMany(mappedBy = "member")
   private List<Order> orders = new ArrayList<>(); //주문
 
-  @ElementCollection(fetch = FetchType.EAGER)
   @Enumerated(EnumType.STRING)
-  @Builder.Default
-  private Set<Role> roles = new HashSet<>();
+  private Role role;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-
-    return roles.stream()
-            .map(role -> new SimpleGrantedAuthority(role.name()))
-            .collect(Collectors.toList());
+    return Collections.singletonList(new SimpleGrantedAuthority(role.name()));
   }
+
+//  @ElementCollection(fetch = FetchType.EAGER)
+//  @Enumerated(EnumType.STRING)
+//  @Builder.Default
+//  private Set<Role> roles;
+//
+//  @Override
+//  public Collection<? extends GrantedAuthority> getAuthorities() {
+//
+//    return roles.stream()
+//            .map(role -> new SimpleGrantedAuthority(role.name()))
+//            .collect(Collectors.toList());
+//  }
 
   @Override
   public boolean isAccountNonExpired() {

@@ -1,6 +1,5 @@
 package study.clone.config;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,10 +19,11 @@ import study.clone.config.jwt.JwtTokenProvider;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
   private final JwtTokenProvider jwtTokenProvider;
 
   @Bean
-  public SecurityFilterChain filterChain(@NotNull final HttpSecurity httpSecurity) throws Exception {
+  public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
     return httpSecurity
 //             REST API 개발이기 때문에 basic auth 및 csrf 보안을 사용하지 않음
             .httpBasic(HttpBasicConfigurer::disable)
