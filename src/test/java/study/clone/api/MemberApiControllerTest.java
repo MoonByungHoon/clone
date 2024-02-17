@@ -1,20 +1,38 @@
 package study.clone.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import study.clone.dto.AddressDto;
 import study.clone.dto.MemberDto;
+import study.clone.entity.Member;
+import study.clone.entity.Role;
+import study.clone.repository.MemberRepository;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
+@AutoConfigureMockMvc
 class MemberApiControllerTest {
+  @Autowired
+  private MockMvc mockMvc;
+
+  @Autowired
+  private ObjectMapper objectMapper;
 
   @Autowired
   private MemberApiController memberApiController;
@@ -22,13 +40,43 @@ class MemberApiControllerTest {
   @Autowired
   private EntityManager em;
 
-  @BeforeEach
-  public void 더미데이터생성() {
+  @Autowired
+  private MemberRepository memberRepository;
 
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
+  @BeforeEach
+  void 더미데이터생성() {
+    memberRepository.save(new Member(
+            1L,
+            "안녕하세요.",
+            passwordEncoder.encode("1234"),
+            null,
+            List.of(),
+            Role.USER)
+    );
   }
 
   @Test
-  public void 회원가입() {
+  void signin_Success() throws Exception {
+    // given
+    MemberDto request = new MemberDto();
+    request.setUsername("안녕하세요.");
+    request.setPassword("1234");
+    request.setRole(Role.USER);
+
+    // when
+    var result = mockMvc.perform(post("/auth/sign-in")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)));
+
+    // then
+    result.andExpect(status().isOk());
+  }
+
+  @Test
+  void 회원가입() {
     AddressDto addressDto = new AddressDto();
     addressDto.setCity("인천");
     addressDto.setStreet("서구");
@@ -57,7 +105,7 @@ class MemberApiControllerTest {
   }
 
   @Test
-  public 로그인및토큰인증() {
+  void 로그인및토큰인증() {
 
   }
 }
