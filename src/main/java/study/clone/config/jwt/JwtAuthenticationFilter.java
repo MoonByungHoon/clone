@@ -13,6 +13,8 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends GenericFilterBean {
   private final JwtTokenProvider jwtTokenProvider;
@@ -33,7 +35,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
   // Request Header에서 토큰 정보 추출
   private String resolveToken(final HttpServletRequest request) {
-    String bearerToken = request.getHeader("Authorization");
+    String bearerToken = request.getHeader(AUTHORIZATION);
     if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer")) {
       return bearerToken.substring(7);
     }
