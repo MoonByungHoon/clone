@@ -1,4 +1,4 @@
-package study.clone.config.auth;
+package study.clone.config.old.jwt.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
