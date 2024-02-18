@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import study.clone.config.jwt.JwtToken;
+import study.clone.config.old.jwt.JwtToken;
 import study.clone.dto.MemberDto;
 import study.clone.dto.ResponseDto;
 import study.clone.service.MemberService;

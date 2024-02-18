@@ -1,4 +1,4 @@
-package study.clone.config.jwt;
+package study.clone.config.old.jwt;
 
 public interface JwtProperties {
 
